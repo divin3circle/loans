@@ -24,5 +24,5 @@ I knowingly simplified authentication, real backend integration, account selecti
 ## Setup Instructions
 - Clone the app at: `https://github.com/divin3circle/loans.git`
 - Open the project in xcode and launch the simulator
-> No dependencies were used in this project
+> No external dependencies were used in this project
 .
