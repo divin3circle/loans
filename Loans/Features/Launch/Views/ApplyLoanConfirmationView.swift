@@ -11,6 +11,7 @@ import SwiftUI
 struct ApplyLoanConfirmationView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @Query private var savedApplications: [SavedLoanApplication]
     @State private var showsSuccess = false
     @State private var saveErrorMessage: String?
     
@@ -66,19 +67,34 @@ struct ApplyLoanConfirmationView: View {
     }
 
     private func saveLoanApplication() {
-        let savedApplication = SavedLoanApplication(
-            loanTitle: viewModel.application.loan.title,
-            loanImage: viewModel.application.loan.image,
-            amount: viewModel.application.amount,
-            interestAmount: viewModel.interestAmount,
-            totalPayable: viewModel.totalPayable,
-            monthlyPayment: viewModel.monthlyPayment,
-            periodMonths: viewModel.application.periodMonths,
-            disbursementAccount: viewModel.application.disbursementAccount,
-            nextRepaymentDate: viewModel.repaymentSchedule.first?.dueDate ?? viewModel.application.startDate
-        )
+        if let draftApplication = savedApplications
+            .filter({ !$0.isSubmitted && $0.loanTitle == viewModel.application.loan.title })
+            .sorted(by: { $0.createdAt > $1.createdAt })
+            .first {
+            draftApplication.amount = viewModel.application.amount
+            draftApplication.interestAmount = viewModel.interestAmount
+            draftApplication.totalPayable = viewModel.totalPayable
+            draftApplication.monthlyPayment = viewModel.monthlyPayment
+            draftApplication.periodMonths = viewModel.application.periodMonths
+            draftApplication.disbursementAccount = viewModel.application.disbursementAccount
+            draftApplication.nextRepaymentDate = viewModel.repaymentSchedule.first?.dueDate ?? viewModel.application.startDate
+            draftApplication.isSubmitted = true
+        } else {
+            let submittedApplication = SavedLoanApplication(
+                loanTitle: viewModel.application.loan.title,
+                loanImage: viewModel.application.loan.image,
+                amount: viewModel.application.amount,
+                interestAmount: viewModel.interestAmount,
+                totalPayable: viewModel.totalPayable,
+                monthlyPayment: viewModel.monthlyPayment,
+                periodMonths: viewModel.application.periodMonths,
+                disbursementAccount: viewModel.application.disbursementAccount,
+                nextRepaymentDate: viewModel.repaymentSchedule.first?.dueDate ?? viewModel.application.startDate,
+                isSubmitted: true
+            )
 
-        modelContext.insert(savedApplication)
+            modelContext.insert(submittedApplication)
+        }
 
         do {
             try modelContext.save()

@@ -20,4 +20,9 @@ I knowingly simplified authentication, real backend integration, account selecti
 - Unit tests(ran out of time,)
 - Document exports(need a bit of time to research on the best implementation of the same in swiftUI)
 - Amortization(knowledge gap and time constarints)
+
+## Setup Instructions
+- Clone the app at: `https://github.com/divin3circle/loans.git`
+- Open the project in xcode and launch the simulator
+> No dependencies were used in this project
 .

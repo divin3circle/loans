@@ -20,6 +20,7 @@ final class SavedLoanApplication {
     var disbursementAccount: String
     var nextRepaymentDate: Date
     var createdAt: Date
+    var isSubmitted: Bool = true
 
     init(
         loanTitle: String,
@@ -31,7 +32,8 @@ final class SavedLoanApplication {
         periodMonths: Int,
         disbursementAccount: String,
         nextRepaymentDate: Date,
-        createdAt: Date = Date()
+        createdAt: Date = Date(),
+        isSubmitted: Bool = true
     ) {
         self.loanTitle = loanTitle
         self.loanImage = loanImage
@@ -43,5 +45,6 @@ final class SavedLoanApplication {
         self.disbursementAccount = disbursementAccount
         self.nextRepaymentDate = nextRepaymentDate
         self.createdAt = createdAt
+        self.isSubmitted = isSubmitted
     }
 }

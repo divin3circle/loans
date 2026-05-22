@@ -17,16 +17,30 @@ final class HomeViewModel {
     }
 
     func activeApplication(from savedApplications: [SavedLoanApplication]) -> SavedLoanApplication? {
-        savedApplications.sorted { $0.createdAt > $1.createdAt }.first
+        submittedApplications(from: savedApplications).first
     }
 
     func otherLoans(from savedApplications: [SavedLoanApplication]) -> [AvailableLoans] {
-        let appliedLoanTitles = Set(savedApplications.map(\.loanTitle))
+        let appliedLoanTitles = Set(submittedApplications(from: savedApplications).map(\.loanTitle))
         return availableLoans.filter { !appliedLoanTitles.contains($0.title) }
     }
 
     func hasActiveLoan(in savedApplications: [SavedLoanApplication]) -> Bool {
-        !savedApplications.isEmpty
+        !submittedApplications(from: savedApplications).isEmpty
+    }
+
+    func canOpenSavedApplication(_ application: SavedLoanApplication, savedApplications: [SavedLoanApplication]) -> Bool {
+        guard let activeApplication = activeApplication(from: savedApplications) else {
+            return true
+        }
+
+        return activeApplication.loanTitle == application.loanTitle
+    }
+
+    private func submittedApplications(from savedApplications: [SavedLoanApplication]) -> [SavedLoanApplication] {
+        savedApplications
+            .filter(\.isSubmitted)
+            .sorted { $0.createdAt > $1.createdAt }
     }
 
     func currencyText(_ amount: Double) -> String {

@@ -171,7 +171,7 @@ struct ContentView: View {
     }
 
     private func savedApplicationsSection() -> some View {
-        SavedLoanApplicationsView {
+        SavedLoanApplicationsView(viewModel: viewModel) {
             path = NavigationPath()
         }
         .padding(.horizontal, 28)

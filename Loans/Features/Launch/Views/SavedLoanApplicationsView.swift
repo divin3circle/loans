@@ -10,10 +10,14 @@ import SwiftUI
 
 struct SavedLoanApplicationsView: View {
     @Query private var savedApplications: [SavedLoanApplication]
+    @State private var showsBlockedAlert = false
+    let viewModel: HomeViewModel
     let onGoHome: () -> Void
 
     private var sortedApplications: [SavedLoanApplication] {
-        savedApplications.sorted { $0.createdAt > $1.createdAt }
+        savedApplications
+            .filter { !$0.isSubmitted }
+            .sorted { $0.createdAt > $1.createdAt }
     }
 
     var body: some View {
@@ -31,7 +35,7 @@ struct SavedLoanApplicationsView: View {
             }
 
             if sortedApplications.isEmpty {
-                Text("Saved loan calculations will appear here after you confirm an application.")
+                Text("Saved loan calculations will appear here after you save or confirm an application.")
                     .font(.body)
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -43,15 +47,29 @@ struct SavedLoanApplicationsView: View {
             } else {
                 VStack(spacing: 12) {
                     ForEach(sortedApplications) { application in
-                        NavigationLink {
-                            ApplyLoanView(savedApplication: application, onGoHome: onGoHome)
-                        } label: {
-                            savedApplicationRow(application)
+                        if viewModel.canOpenSavedApplication(application, savedApplications: savedApplications) {
+                            NavigationLink {
+                                ApplyLoanView(savedApplication: application, onGoHome: onGoHome)
+                            } label: {
+                                savedApplicationRow(application)
+                            }
+                            .buttonStyle(.plain)
+                        } else {
+                            Button {
+                                showsBlockedAlert = true
+                            } label: {
+                                savedApplicationRow(application)
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
                 }
             }
+        }
+        .alert("Active Loan Exists", isPresented: $showsBlockedAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Please pay your active loan first before reopening another saved calculation.")
         }
     }
 
@@ -67,7 +85,7 @@ struct SavedLoanApplicationsView: View {
                     .font(.headline)
                     .foregroundColor(.primary)
 
-                Text("Opened \(formattedDate(application.createdAt))")
+                Text("\(application.isSubmitted ? "Submitted" : "Draft") • \(formattedDate(application.createdAt))")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -116,6 +134,6 @@ struct SavedLoanApplicationsView: View {
 
 #Preview {
     NavigationStack {
-        SavedLoanApplicationsView(onGoHome: {})
+        SavedLoanApplicationsView(viewModel: HomeViewModel(), onGoHome: {})
     }
 }

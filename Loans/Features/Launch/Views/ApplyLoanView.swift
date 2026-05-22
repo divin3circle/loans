@@ -10,7 +10,12 @@ import SwiftUI
 
 struct ApplyLoanView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
+    @Query private var savedApplications: [SavedLoanApplication]
     @State private var viewModel: ApplyLoanViewModel
+    @State private var showsDraftSavedAlert = false
+    @State private var showsActiveLoanAlert = false
+    @State private var saveErrorMessage: String?
     let onGoHome: () -> Void
 
     init(loan: AvailableLoans, onGoHome: @escaping () -> Void = {}) {
@@ -40,18 +45,34 @@ struct ApplyLoanView: View {
                 .padding(.bottom, 24)
             }
 
-            NavigationLink {
-                ApplyLoanConfirmationView(viewModel: viewModel) {
-                    onGoHome()
-                    dismiss()
+            VStack(spacing: 12) {
+                Button("Save Calculation") {
+                    saveDraftApplication()
                 }
-            } label: {
-                Text("Apply Loan")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, minHeight: 58)
-                    .background(Color.green)
-                    .cornerRadius(8)
+                .font(.headline)
+                .foregroundColor(.green)
+                .frame(maxWidth: .infinity, minHeight: 52)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.green, lineWidth: 1)
+                )
+
+                if hasPendingLoan {
+                    Button {
+                        showsActiveLoanAlert = true
+                    } label: {
+                        applyLoanButtonLabel
+                    }
+                } else {
+                    NavigationLink {
+                        ApplyLoanConfirmationView(viewModel: viewModel) {
+                            onGoHome()
+                            dismiss()
+                        }
+                    } label: {
+                        applyLoanButtonLabel
+                    }
+                }
             }
             .padding(.horizontal, 28)
             .padding(.vertical, 24)
@@ -59,6 +80,65 @@ struct ApplyLoanView: View {
         .background(Color.white)
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .navigationBar)
+        .alert("Pending Loan Exists", isPresented: $showsActiveLoanAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Please pay your pending loan first before applying for another loan.")
+        }
+        .alert("Calculation Saved", isPresented: $showsDraftSavedAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("You can reopen this calculation from Saved Calculations.")
+        }
+        .alert("Save Failed", isPresented: Binding(
+            get: { saveErrorMessage != nil },
+            set: { isPresented in
+                if !isPresented {
+                    saveErrorMessage = nil
+                }
+            }
+        )) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(saveErrorMessage ?? "")
+        }
+    }
+
+    private var hasPendingLoan: Bool {
+        savedApplications.contains { $0.isSubmitted }
+    }
+
+    private var applyLoanButtonLabel: some View {
+        Text("Apply Loan")
+            .font(.headline)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity, minHeight: 58)
+            .background(Color.green)
+            .cornerRadius(8)
+    }
+
+    private func saveDraftApplication() {
+        let savedApplication = SavedLoanApplication(
+            loanTitle: viewModel.application.loan.title,
+            loanImage: viewModel.application.loan.image,
+            amount: viewModel.application.amount,
+            interestAmount: viewModel.interestAmount,
+            totalPayable: viewModel.totalPayable,
+            monthlyPayment: viewModel.monthlyPayment,
+            periodMonths: viewModel.application.periodMonths,
+            disbursementAccount: viewModel.application.disbursementAccount,
+            nextRepaymentDate: viewModel.repaymentSchedule.first?.dueDate ?? viewModel.application.startDate,
+            isSubmitted: false
+        )
+
+        modelContext.insert(savedApplication)
+
+        do {
+            try modelContext.save()
+            showsDraftSavedAlert = true
+        } catch {
+            saveErrorMessage = "We couldn't save this calculation. Please try again."
+        }
     }
 
     private var topBar: some View {
