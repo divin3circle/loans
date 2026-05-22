@@ -20,7 +20,7 @@ extension AvailableLoans {
     static var mock: [AvailableLoans] {
         [
             AvailableLoans(title: "Salary E-loan", description: "Get quick loans to boost your income.", image: "eloan", color: .accentColor),
-            AvailableLoans(title: "Buy Now Pay Later", description: "Buy goods today pay later in installments.", image: "paylater", color: .purple),
+            AvailableLoans(title: "Buy Now Pay Later", description: "Buy goods today pay later.", image: "paylater", color: .purple),
             AvailableLoans(title: "Stock Loan", description: "boost your business stock today", image: "stockloan", color: .orange),
             ]
     }
