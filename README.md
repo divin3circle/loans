@@ -10,7 +10,7 @@ Assumptions made: I assumed a fixed annual interest rate of 15% p.a, a default l
 Trade-offs chosen: I used SwiftData as a simple persistence layer instead of Core Data or custom file storage because it fits my currect stack SwiftUI much better and it's easier and simpler to use. The file storage route was abadoned because it's not "production" caliber and doesn't scale well.
 
 ## Improvements
-I think i would add editable loan amount input, richer validation, a full amortization schedule with principal/interest breakdown per installment, and unit tests around the calculator and view models. We would also improve saved-loan management with delete, search, and detailed saved calculation screens.
+I think i would add editable loan amount input, richer validation, a full amortization schedule with principal/interest breakdown per installment, and unit tests around the calculator and view models. I would also improve saved-loan management with delete, search, and detailed saved calculation screens.
 
 ## Intentionally simplified
 I knowingly simplified authentication, real backend integration, account selection, loan eligibility, and disbursement processing into mock/static data. I also kept the saved-loan reopening flow inside the existing apply screen instead of building a separate read-only calculation detail screen:
