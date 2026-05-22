@@ -5,6 +5,7 @@
 //  Created by Sylus Abel on 22/05/2026.
 //
 
+import SwiftData
 import SwiftUI
 
 @main
@@ -13,5 +14,6 @@ struct LoansApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: SavedLoanApplication.self)
     }
 }

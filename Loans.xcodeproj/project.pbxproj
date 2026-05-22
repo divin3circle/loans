@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		7D470B722FC07B1000D7D51C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D470ACC2FC062D200D7D51C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7D470AD32FC062D200D7D51C;
+			remoteInfo = Loans;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		7D470AD42FC062D200D7D51C /* Loans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Loans.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D470B6E2FC07B1000D7D51C /* LoansTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoansTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,22 @@
 			path = Loans;
 			sourceTree = "<group>";
 		};
+		7D470B6F2FC07B1000D7D51C /* LoansTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LoansTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		7D470AD12FC062D200D7D51C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D470B6B2FC07B1000D7D51C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				7D470AD62FC062D200D7D51C /* Loans */,
+				7D470B6F2FC07B1000D7D51C /* LoansTests */,
 				7D470AD52FC062D200D7D51C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				7D470AD42FC062D200D7D51C /* Loans.app */,
+				7D470B6E2FC07B1000D7D51C /* LoansTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +95,29 @@
 			productReference = 7D470AD42FC062D200D7D51C /* Loans.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7D470B6D2FC07B1000D7D51C /* LoansTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D470B742FC07B1000D7D51C /* Build configuration list for PBXNativeTarget "LoansTests" */;
+			buildPhases = (
+				7D470B6A2FC07B1000D7D51C /* Sources */,
+				7D470B6B2FC07B1000D7D51C /* Frameworks */,
+				7D470B6C2FC07B1000D7D51C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7D470B732FC07B1000D7D51C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7D470B6F2FC07B1000D7D51C /* LoansTests */,
+			);
+			name = LoansTests;
+			packageProductDependencies = (
+			);
+			productName = LoansTests;
+			productReference = 7D470B6E2FC07B1000D7D51C /* LoansTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +130,10 @@
 				TargetAttributes = {
 					7D470AD32FC062D200D7D51C = {
 						CreatedOnToolsVersion = 26.5;
+					};
+					7D470B6D2FC07B1000D7D51C = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 7D470AD32FC062D200D7D51C;
 					};
 				};
 			};
@@ -100,12 +152,20 @@
 			projectRoot = "";
 			targets = (
 				7D470AD32FC062D200D7D51C /* Loans */,
+				7D470B6D2FC07B1000D7D51C /* LoansTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7D470AD22FC062D200D7D51C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D470B6C2FC07B1000D7D51C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +182,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7D470B6A2FC07B1000D7D51C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7D470B732FC07B1000D7D51C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7D470AD32FC062D200D7D51C /* Loans */;
+			targetProxy = 7D470B722FC07B1000D7D51C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		7D470ADD2FC062D300D7D51C /* Debug */ = {
@@ -261,6 +336,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -293,6 +369,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,6 +384,48 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7D470B752FC07B1000D7D51C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J73954XJ54;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sylusabel.LoansTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Loans.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Loans";
+			};
+			name = Debug;
+		};
+		7D470B762FC07B1000D7D51C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J73954XJ54;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sylusabel.LoansTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Loans.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Loans";
 			};
 			name = Release;
 		};
@@ -327,6 +446,15 @@
 			buildConfigurations = (
 				7D470AE02FC062D300D7D51C /* Debug */,
 				7D470AE12FC062D300D7D51C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7D470B742FC07B1000D7D51C /* Build configuration list for PBXNativeTarget "LoansTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D470B752FC07B1000D7D51C /* Debug */,
+				7D470B762FC07B1000D7D51C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
